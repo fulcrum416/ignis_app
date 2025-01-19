@@ -1,0 +1,74 @@
+﻿@model Ignis.Models.Bindings.HomeBindings
+<div class="row">
+    <div class="col-12 col-lg-3 col-xxl-3 d-flex">
+        <div class="card rounded-4 w-100">
+            <div class="card-body">
+                <div class="">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <h5 class="mb-0">Current Flow Rate</h5>
+
+                    </div>
+                    <p class="mb-4">@Model.Current.Name</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="">
+                            <span style="font-size:11px">(start) @Model.Current.Start, (end) @Model.Current.End</span>
+                            <h3 class="mb-0 text-indigo">
+                                @Model.Current.Rate.ToString("0.00") L/hr
+
+                            </h3>
+                            <p class="mb-3">@Model.Current.Total.ToString("0.00") L Total</p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 col-xxl-2 d-flex">
+        <div class="card rounded-4 w-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <h5 class="mb-0">Last 2-Hours</h5>
+
+                </div>
+                <p class="mb-4">@Model.LastHour.Name</p>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="">
+                        <span style="font-size:11px">(start) @Model.LastHour.Start, (end) @Model.LastHour.End</span>
+                        <h3 class="mb-0 text-indigo">
+                            @Model.LastHour.Rate.ToString("0.00") L/hr
+
+                        </h3>
+                        <p class="mb-3">@Model.LastHour.Total.ToString("0.00") L Total</p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 col-xxl-2 d-flex">
+        <div class="card rounded-4 w-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <h5 class="mb-0">Last 3-Hours</h5>
+
+                </div>
+                <p class="mb-4">@Model.Last3Hours.Name</p>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="">
+                        <span style="font-size:11px">(start) @Model.Last3Hours.Start, (end) @Model.Last3Hours.End</span>
+                        <h3 class="mb-0 text-indigo">
+                            @Model.Last3Hours.Rate.ToString("0.00") L/hr
+
+                        </h3>
+                        <p class="mb-3">@Model.Last3Hours.Total.ToString("0.00") L Total</p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+﻿@model Ignis.Models.Bindings.HomeBindings
+
+<div class="row">
+    <div id="div_flowRate">
+        <partial name="_Flowrate" />
+    </div>
+
+    <div id="temperatureChart" style="width: 100%; height: 400px;"></div>
+</div><!--end row-->
+
+@section Scripts{
+    <script>
+        // Initialize Highcharts
+        // Initialize Highcharts
+        const chart = Highcharts.chart('temperatureChart', {
+            chart: {
+                type: 'line',
+                zoomType: 'x'
+            },
+            title: {
+                text: '1st Stage Pre-Heat Temperature Data Over Time'
+            },
+            xAxis: {
+                type: 'datetime', // Use datetime for proper time scaling
+                title: {
+                    text: 'Date and Time'
+                },
+                labels: {
+                    format: '{value:%H:%M:%S}', // Format as HH:mm:ss
+                    rotation: -45 // Optional: Angle the labels for better readability
+                },
+                tickInterval: 15 * 1000 // 15 seconds in milliseconds
+            },
+            yAxis: {
+                title: {
+                    text: 'Tag Value'
+                }
+            },
+            tooltip: {
+                xDateFormat: '%Y-%m-%d %H:%M:%S', // Full date and time
+                shared: true // Show multiple series data in one tooltip
+            },
+            series: [] // Data will be dynamically added
+        });
+        
+
+        $(document).ready(function () {
+           
+            loadDefaultChartData();
+        });
+
+        setInterval(() => {
+            loadFlowRate()
+        }, 30000);// run every 30 seconds
+
+
+        var loadFlowRate = () => {
+            new Ax({
+                url: 'Home/GetFeedFlowRate',
+                divId: 'div_flowRate'
+            }).AxGet();
+        };
+
+        var loadDefaultChartData = () => {
+            new Ax({
+                url: 'Home/GetTagData',
+                f: function (data) {
+                    console.log(data);
+                    if (!data || Object.keys(data).length === 0) {
+                        alert("No data available to load.");
+                        return;
+                    }
+                    //Clear existing series
+                    while (chart.series.length > 0) {
+                        chart.series[0].remove(false);
+                    }
+
+                    // Add new series
+                    Object.keys(data).forEach(tag => {
+                        chart.addSeries({
+                            name: tag,
+                            data: data[tag], // Data: [timestamp, value]
+                            tooltip: {
+                                valueDecimals: 2
+                            }
+                        }, false);
+                    });
+                    chart.redraw();
+                }
+            }).AxGet();
+        }
+    </script>
+}
