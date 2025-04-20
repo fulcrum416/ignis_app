@@ -5,10 +5,22 @@
         <partial name="_Flowrate" />
     </div>
 
-    <div id="temperatureChart" style="width: 100%; height: 400px;"></div>
-    <div id="pressureChart" style="width: 100%; height: 400px;"></div>
-    <div id="temperatureChart2" style="width: 100%; height: 400px;"></div>
-    <div id="coolingChart" style="width: 100%; height: 400px;"></div>
+    <div class="col-md-12" style="margin-bottom:10px !important">
+        <div id="temperatureChart" style="width: 100%; height: 400px;"></div>
+    </div>
+    
+    <div class="col-md-12" style="margin-bottom:10px !important">
+        <div id="pressureChart" style="width: 100%; height: 400px;"></div>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom:10px !important">
+        <div id="temperatureChart2" style="width: 100%; height: 400px;"></div>
+    </div>
+    
+    <div class="col-md-12" style="margin-bottom:10px !important">
+        <div id="coolingChart" style="width: 100%; height: 400px;"></div>
+    </div>
+    
 </div><!--end row-->
 
 @section Scripts{
@@ -43,9 +55,15 @@
                 xDateFormat: '%Y-%m-%d %H:%M:%S', // Full date and time
                 shared: true // Show multiple series data in one tooltip
             },
+            plotOptions: {
+                line: { // Or 'series' to affect all types
+                    marker: {
+                        enabled: false // Disable markers on the line points
+                    }
+                }
+            },
             series: [] // Data will be dynamically added
         });
-
         const chartP = Highcharts.chart('pressureChart', {
             chart: {
                 type: 'line',
@@ -74,16 +92,22 @@
                 xDateFormat: '%Y-%m-%d %H:%M:%S', // Full date and time
                 shared: true // Show multiple series data in one tooltip
             },
+            plotOptions: {
+                line: { // Or 'series' to affect all types
+                    marker: {
+                        enabled: false // Disable markers on the line points
+                    }
+                }
+            },
             series: [] // Data will be dynamically added
         });
-
         const chart2ndStage = Highcharts.chart('temperatureChart2', {
             chart: {
                 type: 'line',
                 zoomType: 'x'
             },
             title: {
-                text: '1st Stage/Separator Pressure Data'
+                text: '2nd Stage Pressure Data'
             },
             xAxis: {
                 type: 'datetime', // Use datetime for proper time scaling
@@ -104,6 +128,13 @@
             tooltip: {
                 xDateFormat: '%Y-%m-%d %H:%M:%S', // Full date and time
                 shared: true // Show multiple series data in one tooltip
+            },
+            plotOptions: {
+                line: { // Or 'series' to affect all types
+                    marker: {
+                        enabled: false // Disable markers on the line points
+                    }
+                }
             },
             series: [] // Data will be dynamically added
         });
@@ -113,7 +144,7 @@
                 zoomType: 'x'
             },
             title: {
-                text: '1st Stage/Separator Pressure Data'
+                text: 'System Cooling Data'
             },
             xAxis: {
                 type: 'datetime', // Use datetime for proper time scaling
@@ -134,6 +165,13 @@
             tooltip: {
                 xDateFormat: '%Y-%m-%d %H:%M:%S', // Full date and time
                 shared: true // Show multiple series data in one tooltip
+            },
+            plotOptions: {
+                line: { // Or 'series' to affect all types
+                    marker: {
+                        enabled: false // Disable markers on the line points
+                    }
+                }
             },
             series: [] // Data will be dynamically added
         });
