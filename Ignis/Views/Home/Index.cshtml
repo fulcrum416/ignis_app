@@ -107,7 +107,7 @@
                 zoomType: 'x'
             },
             title: {
-                text: '2nd Stage Pressure Data'
+                text: '2nd Stage Temp Data'
             },
             xAxis: {
                 type: 'datetime', // Use datetime for proper time scaling
@@ -227,9 +227,9 @@
                                     tooltip: {
                                         valueDecimals: 2
                                     }
-                                }, false);
+                                }, true,true);
                             });
-                            chart.redraw();
+                            //chart.redraw();
                             break;
                         case "1stStagePressure":
                             //Clear existing series
@@ -245,9 +245,9 @@
                                     tooltip: {
                                         valueDecimals: 2
                                     }
-                                }, false);
+                                }, true,true);
                             });
-                            chartP.redraw();
+                            //chartP.redraw();
                             break;
                         case "2ndStageTemp":
                             //Clear existing series
@@ -263,9 +263,9 @@
                                     tooltip: {
                                         valueDecimals: 2
                                     }
-                                }, false);
+                                }, true,true);
                             });
-                            chart2ndStage.redraw();
+                            //chart2ndStage.redraw();
                             break;
                         case "coolingTemp":
                             //Clear existing series
@@ -281,9 +281,9 @@
                                     tooltip: {
                                         valueDecimals: 2
                                     }
-                                }, false);
+                                }, true,true);
                             });
-                            cooling.redraw();
+                            //cooling.redraw();
                             break;
                     }
 
