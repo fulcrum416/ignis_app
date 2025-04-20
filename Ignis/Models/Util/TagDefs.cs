@@ -103,7 +103,7 @@ namespace Ignis.Models.Util
             && m.LogDate <= DateTime.UtcNow
             ).OrderBy(x=>x.InDate).Select(x=>new TagChartData
             {
-                Name = x.Name,
+                Name = $"{x.Name} - {x.Description}",
                 TagValue=x.TagValue.Value,
                 Timestamp=x.InDate.ToLocalTime()
             }).OrderBy(m=>m.Timestamp).ToList();
@@ -121,7 +121,7 @@ namespace Ignis.Models.Util
 
             var _first = data.First().TagValue;
             var _last = data.Last().TagValue;
-            var sum = _last - _first;
+            var sum = (_last - _first)/10;
 
             var results = new FlowRate
             {
@@ -157,7 +157,7 @@ namespace Ignis.Models.Util
                 var _first = data.First().TagValue;
                 var _last = data.Last().TagValue;
                 var sum = _last - _first;
-                var rate = sum / startHour;
+                var rate = (sum / startHour)/10;
 
                 results = new FlowRate
                 {

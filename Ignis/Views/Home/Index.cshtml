@@ -6,6 +6,9 @@
     </div>
 
     <div id="temperatureChart" style="width: 100%; height: 400px;"></div>
+    <div id="pressureChart" style="width: 100%; height: 400px;"></div>
+    <div id="temperatureChart2" style="width: 100%; height: 400px;"></div>
+    <div id="coolingChart" style="width: 100%; height: 400px;"></div>
 </div><!--end row-->
 
 @section Scripts{
@@ -18,7 +21,99 @@
                 zoomType: 'x'
             },
             title: {
-                text: '1st Stage Pre-Heat Temperature Data Over Time'
+                text: '1st Stage/Separator Temperature Data '
+            },
+            xAxis: {
+                type: 'datetime', // Use datetime for proper time scaling
+                title: {
+                    text: 'Date and Time'
+                },
+                labels: {
+                    format: '{value:%H:%M:%S}', // Format as HH:mm:ss
+                    rotation: -45 // Optional: Angle the labels for better readability
+                },
+                tickInterval: 15 * 1000 // 15 seconds in milliseconds
+            },
+            yAxis: {
+                title: {
+                    text: 'Tag Value'
+                }
+            },
+            tooltip: {
+                xDateFormat: '%Y-%m-%d %H:%M:%S', // Full date and time
+                shared: true // Show multiple series data in one tooltip
+            },
+            series: [] // Data will be dynamically added
+        });
+
+        const chartP = Highcharts.chart('pressureChart', {
+            chart: {
+                type: 'line',
+                zoomType: 'x'
+            },
+            title: {
+                text: '1st Stage/Separator Pressure Data'
+            },
+            xAxis: {
+                type: 'datetime', // Use datetime for proper time scaling
+                title: {
+                    text: 'Date and Time'
+                },
+                labels: {
+                    format: '{value:%H:%M:%S}', // Format as HH:mm:ss
+                    rotation: -45 // Optional: Angle the labels for better readability
+                },
+                tickInterval: 15 * 1000 // 15 seconds in milliseconds
+            },
+            yAxis: {
+                title: {
+                    text: 'Tag Value'
+                }
+            },
+            tooltip: {
+                xDateFormat: '%Y-%m-%d %H:%M:%S', // Full date and time
+                shared: true // Show multiple series data in one tooltip
+            },
+            series: [] // Data will be dynamically added
+        });
+
+        const chart2ndStage = Highcharts.chart('temperatureChart2', {
+            chart: {
+                type: 'line',
+                zoomType: 'x'
+            },
+            title: {
+                text: '1st Stage/Separator Pressure Data'
+            },
+            xAxis: {
+                type: 'datetime', // Use datetime for proper time scaling
+                title: {
+                    text: 'Date and Time'
+                },
+                labels: {
+                    format: '{value:%H:%M:%S}', // Format as HH:mm:ss
+                    rotation: -45 // Optional: Angle the labels for better readability
+                },
+                tickInterval: 15 * 1000 // 15 seconds in milliseconds
+            },
+            yAxis: {
+                title: {
+                    text: 'Tag Value'
+                }
+            },
+            tooltip: {
+                xDateFormat: '%Y-%m-%d %H:%M:%S', // Full date and time
+                shared: true // Show multiple series data in one tooltip
+            },
+            series: [] // Data will be dynamically added
+        });
+        const cooling = Highcharts.chart('coolingChart', {
+            chart: {
+                type: 'line',
+                zoomType: 'x'
+            },
+            title: {
+                text: '1st Stage/Separator Pressure Data'
             },
             xAxis: {
                 type: 'datetime', // Use datetime for proper time scaling
@@ -46,12 +141,19 @@
 
         $(document).ready(function () {
            
-            loadDefaultChartData();
+            loadDefaultChartData("1stStageTemp");
+            loadDefaultChartData("1stStagePressure");
+            loadDefaultChartData("2ndStageTemp");
+            loadDefaultChartData("coolingTemp");
         });
 
         setInterval(() => {
-            loadFlowRate()
-        }, 30000);// run every 30 seconds
+            loadFlowRate();
+            loadDefaultChartData("1stStageTemp");
+            loadDefaultChartData("1stStagePressure");
+            loadDefaultChartData("2ndStageTemp");
+            loadDefaultChartData("coolingTemp");
+        }, 60000);// run every 30 seconds
 
 
         var loadFlowRate = () => {
@@ -61,33 +163,98 @@
             }).AxGet();
         };
 
-        var loadDefaultChartData = () => {
+        var loadDefaultChartData = (types) => {
             new Ax({
                 url: 'Home/GetTagData',
+                data: {'tags':types},
                 f: function (data) {
-                    console.log(data);
+                    
                     if (!data || Object.keys(data).length === 0) {
-                        alert("No data available to load.");
+                        //alert("No data available to load.");
                         return;
                     }
-                    //Clear existing series
-                    while (chart.series.length > 0) {
-                        chart.series[0].remove(false);
+
+                    switch (types) {
+                        case "1stStageTemp":
+                            //Clear existing series
+                            while (chart.series.length > 0) {
+                                chart.series[0].remove(false);
+                            }
+
+                            // Add new series
+                            Object.keys(data).forEach(tag => {
+                                chart.addSeries({
+                                    name: tag,
+                                    data: data[tag], // Data: [timestamp, value]
+                                    tooltip: {
+                                        valueDecimals: 2
+                                    }
+                                }, false);
+                            });
+                            chart.redraw();
+                            break;
+                        case "1stStagePressure":
+                            //Clear existing series
+                            while (chartP.series.length > 0) {
+                                chartP.series[0].remove(false);
+                            }
+
+                            // Add new series
+                            Object.keys(data).forEach(tag => {
+                                chartP.addSeries({
+                                    name: tag,
+                                    data: data[tag], // Data: [timestamp, value]
+                                    tooltip: {
+                                        valueDecimals: 2
+                                    }
+                                }, false);
+                            });
+                            chartP.redraw();
+                            break;
+                        case "2ndStageTemp":
+                            //Clear existing series
+                            while (chart2ndStage.series.length > 0) {
+                                chart2ndStage.series[0].remove(false);
+                            }
+
+                            // Add new series
+                            Object.keys(data).forEach(tag => {
+                                chart2ndStage.addSeries({
+                                    name: tag,
+                                    data: data[tag], // Data: [timestamp, value]
+                                    tooltip: {
+                                        valueDecimals: 2
+                                    }
+                                }, false);
+                            });
+                            chart2ndStage.redraw();
+                            break;
+                        case "coolingTemp":
+                            //Clear existing series
+                            while (cooling.series.length > 0) {
+                                cooling.series[0].remove(false);
+                            }
+
+                            // Add new series
+                            Object.keys(data).forEach(tag => {
+                                cooling.addSeries({
+                                    name: tag,
+                                    data: data[tag], // Data: [timestamp, value]
+                                    tooltip: {
+                                        valueDecimals: 2
+                                    }
+                                }, false);
+                            });
+                            cooling.redraw();
+                            break;
                     }
 
-                    // Add new series
-                    Object.keys(data).forEach(tag => {
-                        chart.addSeries({
-                            name: tag,
-                            data: data[tag], // Data: [timestamp, value]
-                            tooltip: {
-                                valueDecimals: 2
-                            }
-                        }, false);
-                    });
-                    chart.redraw();
                 }
             }).AxGet();
+        } 
+
+        var renderCharts=(types,datas)=>{
+
         }
     </script>
 }

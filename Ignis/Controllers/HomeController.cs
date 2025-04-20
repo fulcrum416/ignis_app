@@ -60,9 +60,24 @@ namespace Ignis.Controllers
             {
                 // Set Central Time
                 var centralTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+                
+                var defaultTags = new List<string>();
 
-
-                var defaultTags = new List<string> {"TT-303","R1-PH" };
+                switch (tags)
+                {
+                    case "1stStageTemp":
+                        defaultTags = new List<string> { "TT-600", "TT-601", "ST-118", "TT-103", "ST-120" };
+                        break;
+                    case "1stStagePressure":
+                        defaultTags = new List<string> { "PIT-100", "PIT-101", "PIT-104", "PIT-X200", "PIT-X201" };
+                        break;
+                    case "2ndStageTemp":
+                        defaultTags = new List<string> { "ST-107", "ST-117", "ST-110", "ST-111", "D1-TEMP","D1-OVER" };
+                        break;
+                    case "coolingTemp":
+                        defaultTags = new List<string> { "TT-128", "ST-115", "ST-114", "TT-129", "ST-201" };
+                        break;
+                }
                 var tagDatas = await _defs.GetTagData(3,defaultTags);
                 //var groupData = tagDatas.GroupBy(x => x.Name??"").ToDictionary(g => g.Key,g => g.Select(d => new { d.Timestamp, d.TagValue }));
                 // Prepare data: group by tag and convert timestamps to 15-second intervals
