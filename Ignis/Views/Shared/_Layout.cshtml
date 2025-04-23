@@ -28,6 +28,8 @@
     <link href="~/sass/semi-dark.css" rel="stylesheet">
     <link href="~/sass/bordered-theme.css" rel="stylesheet">
     <link href="~/sass/responsive.css" rel="stylesheet">
+    <link href="~/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/select2-bootstrap-5-theme/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
 </head>
 <body>
     <header class="top-header">
@@ -71,6 +73,11 @@
 @*     <script src="~/assets/plugins/apexchart/apexcharts.min.js"></script> *@
     <script src="~/assets/plugins/simplebar/js/simplebar.min.js"></script>
     <script src="~/assets/plugins/peity/jquery.peity.min.js"></script>
+    <script src="~/select2/js/select2.min.js"></script>
+    
+        
+
+
     <script>
         $(".data-attributes span").peity("donut")
     </script>
@@ -78,6 +85,45 @@
     <script src="~/js/AjaxUtil.js"></script>
     @* <script src="~/assets/js/dashboard2.js"></script> *@
 @*     <script src="~/assets/js/main.js"></script> *@
+
+
+    <script>
+        // default local dictionary
+        var localstore = {
+            'pause': {
+                'firstStage':false,
+                'secondStage':false,
+                'pressure':false,
+                'cooling':false
+            },
+            'play':{
+                'firstStage':true,
+                'secondStage':true,
+                'pressure':true,
+                'cooling':true
+            },
+            'timers':{
+                'main':60000 // 60 seconds
+            },
+            'datasize':{
+                'firstStage':{
+                    'hours':2
+                },
+                'secondStage':{
+                    'hours':2
+                },
+                'pressure':{
+                    'hours':2
+                },
+                'cooling':{
+                    'hours':2
+                }
+            }
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
 </html>

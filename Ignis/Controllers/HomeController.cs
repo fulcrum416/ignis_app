@@ -29,11 +29,21 @@ namespace Ignis.Controllers
             var currentFlow = await _defs.GetAverageFlowToNow(1, tag);
             var lastHoursRate = await _defs.GetAverageFlowToLastHours(2, tag);
             var lastThreeHrsRate = await _defs.GetAverageFlowToLastHours(3, tag);
+
+            var firstStage = await _defs.GetTagDefSelectList("Temp", "firstStageTemp");
+            var pressure = await _defs.GetTagDefSelectList("Pressure", "pressure");
+            var secondStage = await _defs.GetTagDefSelectList("Temp", "secondStageTemp");
+            var cooling = await _defs.GetTagDefSelectList("Temp", "cooling");
             var model = new HomeBindings
             {
                 Current = currentFlow,
                 Last3Hours = lastThreeHrsRate,
-                LastHour = lastHoursRate
+                LastHour = lastHoursRate,
+                FirstStageTempTags = firstStage,
+                SecondStageTempTags = secondStage,
+                PressureTags = pressure,
+                CoolingTags = cooling
+                
             };
             return View(model);
         }

@@ -3,6 +3,7 @@ using Ignis.Data.DbModel;
 using Ignis.Models.Props;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Data;
 
 namespace Ignis.Models.Util
 {
@@ -12,6 +13,7 @@ namespace Ignis.Models.Util
         Task<FlowRate> GetAverageFlowToNow(int lastHours, string tagName);
         Task<List<SelectListItem>> GetTagCatgoriesSelectListAsync(string selectedText="");
         Task<List<TagChartData>> GetTagData(int totalHours, List<string> tagNames);
+        Task<List<SelectListItem>> GetTagDefSelectList(string tagType, string category);
         Task<List<SelectListItem>> GetUnitTagsByCategorySelectListAsync(string category, string selectedCat = "");
         Task<List<SelectListItem>> GetUnitTagsByUnitTypeSelectListAsync(string unitType, string selectedTag = "");
         Task<List<SelectListItem>> GetUnitTypeSelectListAsync(string selectedText = "");
@@ -173,6 +175,39 @@ namespace Ignis.Models.Util
             return Task.FromResult(results);
 
         }
+
+        #region Get SelectListItems
+        public Task<List<SelectListItem>> GetTagDefSelectList(string tagType, string category)
+        {
+            var results = new List<SelectListItem>();
+            var data = new List<TagDefinition>();
+
+            switch (category)
+            {
+                case "firstStageTemp":
+                    data = _db.TagsDefinitions.Where(m => m.UnitType == tagType && m.Category == "Input Feed" || m.Category == "1st Stage" || m.Category == "Feed" || m.Category == "Extruder" || m.Category=="Separator").OrderBy(m=>m.UnitType).ToList();
+                    break;
+                case "pressure":
+                    data = _db.TagsDefinitions.Where(m => m.UnitType == tagType && m.Category == "Input Feed" || m.Category == "1st Stage" || m.Category=="Separator" || m.Category=="Extruder" || m.Category=="2nd Stage" || m.Category=="Feed").OrderBy(m => m.UnitType).ToList();
+                    break;
+                case "secondStageTemp":
+                    data = _db.TagsDefinitions.Where(m => m.UnitType == tagType && m.Category == "2nd Stage").OrderBy(m => m.UnitType).ToList();
+                    break;
+                case "cooling":
+                    data = _db.TagsDefinitions.Where(m => m.UnitType == tagType && m.Category == "Cooling").OrderBy(m => m.UnitType).ToList();
+                    break;
+            }
+
+            results = data.Select(x => new SelectListItem
+            {
+                Value = $"{x.UnitTag}",
+                Text = $"{x.UnitTag} - {x.Description}"
+
+            }).ToList();
+            return Task.FromResult(results);
+
+        }
+        #endregion
 
 
     }
