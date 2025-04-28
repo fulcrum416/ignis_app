@@ -4,6 +4,7 @@ using Ignis.Models.Props;
 using Ignis.Models.Util;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 namespace Ignis.Controllers
 {
@@ -62,6 +63,46 @@ namespace Ignis.Controllers
             };
 
             return PartialView("_FlowRate", model);
+        }
+
+        public async Task<IActionResult> GetFlowRate()
+        {
+            try
+            {
+                var tag = "FI-100-Total";
+                var currentFlow = await _defs.GetAverageFlowToNow(1, tag);
+                var lastHoursRate = await _defs.GetAverageFlowToLastHours(2, tag);
+                var lastThreeHrsRate = await _defs.GetAverageFlowToLastHours(3, tag);
+
+                var data = new
+                {
+                    CurrentRate = currentFlow.Rate.ToString("0.00") ?? "0.0",
+                    CurrentTotal = currentFlow.Total.ToString("0.00") ?? "0.0",
+                    Last2Hours = lastHoursRate.Rate.ToString("0.00") ?? "0.0",
+                    Last2HoursTotal = lastHoursRate.Total.ToString("0.00") ?? "0.0",
+                    Last3Hours = lastThreeHrsRate.Rate.ToString("0.00") ?? "0.0",
+                    Last3HoursTotal = lastThreeHrsRate.Total.ToString("0.00") ?? "0.0"
+                };
+                return Json(data);
+
+            }catch (Exception ex)
+            {
+
+                var data = new
+                {
+                    CurrentRate = "0.0",
+                    CurrentTotal ="0.0",
+                    Last2Hours = "0.0",
+                    Last2HoursTotal = "0.0",
+                    Last3Hours = "0.0",
+                    Last3HoursTotal = "0.0"
+                };
+                return Json(data);
+            }
+
+
+
+
         }
 
         public async Task<IActionResult> GetTagData(string types, List<string> tags, int hours=3)

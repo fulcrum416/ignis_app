@@ -1,0 +1,58 @@
+﻿@model Ignis.Models.Bindings.HomeBindings
+<div class="row" style="margin-top:-20px !important">
+    <div class="col-12 col-lg-4 col-xxl-4 d-flex">
+        <div class="card rounded-4 w-100">
+            <div class="card-body">
+                <table class="table table-borderless table-sm" style="margin-bottom:3px !important">
+                    <tbody>
+                        <tr>
+                            <td>Current Rate</td>
+                            <td>Last 2-Hours</td>
+                            <td>Last 3-Hours</td>
+                        </tr>
+                        <tr>
+                            <td style="background-color:black">
+                                <h4 class="mb-0 text-indigo" id="currentRate" style="color:cyan">
+                                    0.0                              
+                                </h4>  <span style="color:white">l/hr</span>
+                            </td>                            
+                            <td style="background-color:black">
+                                <h4 class="mb-0 text-indigo" id="lastHourRate" style="color:cyan">
+                                    0.0
+                                </h4> <span style="color:white">l/hr</span>
+                            </td>
+                            <td style="background-color:black">
+                                <h4 class="mb-0 text-indigo" id="lastThreeHoursRate" style="color:cyan">
+                                    0.0
+                                </h4> <span style="color:white">l/hr</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="mb-3">
+                                    <span id="currentTotal">
+                                        0.0
+                                    </span> L Total
+                                </p>
+                            </td>
+                            <td>
+                                <p class="mb-3">
+                                    <span id="lastHourTotal">
+                                        0.0
+                                    </span> L Total
+                                </p>
+                            </td>
+                            <td>
+                                <p class="mb-3">
+                                    <span id="last3HoursTotal">
+                                        0.0
+                                    </span> L Total
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>                
+            </div>
+        </div>
+    </div>    
+</div>

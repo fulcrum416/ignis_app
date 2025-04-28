@@ -2,7 +2,7 @@
 
 <div class="row">
     <div id="div_flowRate">
-        <partial name="_Flowrate" />
+        <partial name="__Flowrate" />
     </div>
 
 
@@ -453,8 +453,8 @@
 
         //#region timers
         setInterval(() => {
-            loadFlowRate();
-
+            //loadFlowRate();
+            loadFlow();
             if (localstore.play.firstStage) {
                 refreshFirstStage();
             }
@@ -481,6 +481,14 @@
                 divId: 'div_flowRate'
             }).AxGet();
         };
+        var loadFlow=()=>{
+            new Ax({
+                url: 'Home/GetFlowRate',
+                f: function (data) {                    
+                    loadInputFlowRate(data);
+                }
+            }).AxGetJson();
+        }
 
         var loadDefaultChartData = (types, tags, hours) => {
             new Ax({
@@ -576,6 +584,14 @@
         //#endregion
 
         //#region local-request
+        var loadInputFlowRate=(data)=>{
+            $('#currentRate').text(data.currentRate);
+            $('#currentTotal').text(data.currentTotal);
+            $('#lastHourRate').text(data.last2Hours);
+            $('#lastHourTotal').text(data.last2HoursTotal);
+            $('#lastThreeHoursRate').text(data.last3Hours);
+            $('#last3HoursTotal').text(data.last3HoursTotal);
+        }
         var refreshFirstStage=()=>{
             var selectedHours = $('#selectedFirstStageDataSize').val();
             var tags = $('#selectedFirstStageTags').val();

@@ -178,6 +178,49 @@ var Ax = function (
         }
     };
 
+    // Ajax JSON Get
+    this.AxGetJson = function () {        
+        
+        var req = false;
+        if (!req) {
+            req = true;
+            // render spinner inside div before server callback is received
+            $('#' + vars.divId).html(loadingSpinner);
+            $(loadingDiv).show();
+            $.ajax({
+                url: vars.url,
+                data: vars.data,
+                type: 'GET',
+                dataType:'json',
+                cache: false,
+                success: function (result) {
+                    if (result === 'error') {
+                        // handle error via ajax req                        
+                        new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
+                    } else {
+                        
+                    }
+                    
+                    // trigger pass through function if not null
+                    if (typeof vars.f === 'function') {
+                        vars.f(result);
+                    } else {
+                        return result//$('#' + vars.divId).html(result);
+                    }
+                },
+                complete: function () {
+                    req = false;
+                    $(loadingDiv).hide();
+                },
+                error: function () {
+                    req = false;
+                    $(loadingDiv).hide();
+                    // handle error messaging to the user
+                }
+            })
+        }
+    };
+
     // initialize constructor
     this.construct(vars);
 
