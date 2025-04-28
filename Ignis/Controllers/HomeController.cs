@@ -64,16 +64,16 @@ namespace Ignis.Controllers
             return PartialView("_FlowRate", model);
         }
 
-        public async Task<IActionResult> GetTagData(string tags="X")
+        public async Task<IActionResult> GetTagData(string types, List<string> tags, int hours=3)
         {
-            if (!string.IsNullOrEmpty(tags))
+            if (!string.IsNullOrEmpty(types))
             {
                 // Set Central Time
                 var centralTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
                 
                 var defaultTags = new List<string>();
 
-                switch (tags)
+                switch (types)
                 {
                     case "1stStageTemp":
                         defaultTags = new List<string> { "TT-600", "TT-601", "ST-118", "TT-103", "ST-120" };
@@ -88,7 +88,12 @@ namespace Ignis.Controllers
                         defaultTags = new List<string> { "TT-128", "ST-115", "ST-114", "TT-129", "ST-201" };
                         break;
                 }
-                var tagDatas = await _defs.GetTagData(3,defaultTags);
+
+                if(tags !=null && tags.Any())
+                {
+                    defaultTags = tags;
+                }
+                var tagDatas = await _defs.GetTagData(hours,defaultTags);
                 //var groupData = tagDatas.GroupBy(x => x.Name??"").ToDictionary(g => g.Key,g => g.Select(d => new { d.Timestamp, d.TagValue }));
                 // Prepare data: group by tag and convert timestamps to 15-second intervals
                 var groupData = tagDatas

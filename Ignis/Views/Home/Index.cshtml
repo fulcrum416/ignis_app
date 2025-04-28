@@ -4,7 +4,7 @@
     <div id="div_flowRate">
         <partial name="_Flowrate" />
     </div>
-    
+
 
 
     <div class="row" style="margin-bottom:10px !important">
@@ -12,6 +12,7 @@
         <div class="col-md-2">
             <div class="card rounded-4">
                 <div class="card-body">
+                    <p>1st Stage-Separator Temp.</p>
                     <table class="table table-borderless">
                         <tr>
                             <td>
@@ -25,18 +26,20 @@
                                 </div>
                             </td>
                             <td>
-                                <select class="form-select-sm" data-type="ajax-req" data-name="selectedFirstStageDataSize" title="2nd Stage Data Size">
+                                <select class="form-select-sm" data-type="ajax-req" id="selectedFirstStageDataSize" data-name="selectedFirstStageDataSize" title="2nd Stage Data Size">
                                     <option value="2" selected>2 Hrs</option>
-                                    <option value="4">6 Hrs</option>
+                                    <option value="4">4 Hrs</option>
                                     <option value="6">6 Hrs</option>
                                     <option value="8">8 Hrs</option>
+                                    <option value="12">12 Hrs</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <select class="form-select select2-hidden-accessible font-12" data-placeholder="Choose anything" id="selectedFirstStageTags" multiple="" data-type="ajax-req" data-name="selectedFirstStageTags" title="1st Stage Tags" data-select2-id="select2-data-prepend-text-multiple-field" tabindex="-1" aria-hidden="true">
-                                    @foreach(var item in Model.FirstStageTempTags){
+                                    @foreach (var item in Model.FirstStageTempTags)
+                                    {
                                         <option value="@item.Value">@item.Text</option>
                                     }
                                 </select>
@@ -47,17 +50,17 @@
                             <td colspan="2">
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-info btn-sm raised d-flex gap-2 font-12"><i class="material-icons-outlined">browser_updated</i> LOAD</button>
+                                        <button type="button" class="btn btn-info btn-sm raised d-flex gap-2 font-12" data-type="ajax-req" data-name="loadFirstStageTags"><i class="material-icons-outlined">browser_updated</i> LOAD</button>
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-dark btn-sm raised d-flex gap-2 font-12"><i class="material-icons-outlined">phonelink_erase</i> RESET</button>
+                                        <button type="button" class="btn btn-dark btn-sm raised d-flex gap-2 font-12" data-type="ajax-req" data-name="resetFirstStageTags"><i class="material-icons-outlined">phonelink_erase</i> RESET</button>
                                     </div>
                                 </div>
 
                             </td>
                         </tr>
                     </table>
-                    
+
 
                 </div>
             </div>
@@ -67,11 +70,12 @@
             <div id="temperatureChart" style="width: 100%; height: 400px;"></div>
         </div>
     </div>
-    
+
     <div class="row" style="margin-bottom:10px !important">
         <div class="col-md-2">
             <div class="card rounded-4">
                 <div class="card-body">
+                    <p>1st Stage-Separator Pressure</p>
                     <table class="table table-borderless">
                         <tr>
                             <td>
@@ -85,18 +89,20 @@
                                 </div>
                             </td>
                             <td>
-                                <select class="form-select-sm" data-type="ajax-req" data-name="selectedFirstStageDataSize" title="2nd Stage Data Size">
+                                <select class="form-select-sm" data-type="ajax-req" id="selectedPresureDataSize" data-name="selectedPresureDataSize" title="2nd Stage Data Size">
                                     <option value="2" selected>2 Hrs</option>
-                                    <option value="4">6 Hrs</option>
+                                    <option value="4">4 Hrs</option>
                                     <option value="6">6 Hrs</option>
                                     <option value="8">8 Hrs</option>
+                                    <option value="12">12 Hrs</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <select class="form-select select2-hidden-accessible font-12" data-placeholder="Choose anything" id="selectedPressureTags" multiple="" data-type="ajax-req" data-name="selectedPressureTags" title="Pressure Tags" data-select2-id="select2-data-prepend-text-multiple-field" tabindex="-1" aria-hidden="true">
-                                    @foreach(var item in Model.PressureTags){
+                                    @foreach (var item in Model.PressureTags)
+                                    {
                                         <option value="@item.Value">@item.Text</option>
                                     }
                                 </select>
@@ -107,28 +113,29 @@
                             <td colspan="2">
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-info btn-sm raised d-flex gap-2 font-12"><i class="material-icons-outlined">browser_updated</i> LOAD</button>
+                                        <button type="button" class="btn btn-info btn-sm raised d-flex gap-2 font-12" data-type="ajax-req" data-name="loadPressureTags"><i class="material-icons-outlined">browser_updated</i> LOAD</button>
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-dark btn-sm raised d-flex gap-2 font-12"><i class="material-icons-outlined">phonelink_erase</i> RESET</button>
+                                        <button type="button" class="btn btn-dark btn-sm raised d-flex gap-2 font-12" data-type="ajax-req" data-name="resetPressureTags"><i class="material-icons-outlined">phonelink_erase</i> RESET</button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
                     </table>
-                </div>                    
+                </div>
             </div>
         </div>
         <div class="col-md-10">
             <div id="pressureChart" style="width: 100%; height: 400px;"></div>
         </div>
-        
+
     </div>
 
     <div class="row" style="margin-bottom:10px !important">
         <div class="col-md-2">
             <div class="card rounded-4">
                 <div class="card-body">
+                    <p>2nd Stage Temp.</p>
                     <table class="table table-borderless">
                         <tr>
                             <td>
@@ -142,18 +149,20 @@
                                 </div>
                             </td>
                             <td>
-                                <select class="form-select-sm" data-type="ajax-req" data-name="selectedSecondStageDataSize" title="2nd Stage Data Size">
+                                <select class="form-select-sm" data-type="ajax-req" id="selectedSecondStageDataSize" data-name="selectedSecondStageDataSize" title="2nd Stage Data Size">
                                     <option value="2" selected>2 Hrs</option>
-                                    <option value="4">6 Hrs</option>
+                                    <option value="4">4 Hrs</option>
                                     <option value="6">6 Hrs</option>
                                     <option value="8">8 Hrs</option>
+                                    <option value="12">12 Hrs</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <select class="form-select select2-hidden-accessible font-12" data-placeholder="Choose anything" id="selectedSecondStageTags" multiple="" data-type="ajax-req" data-name="selectedSecondStageTags" title="2nd Stage Tags" data-select2-id="select2-data-prepend-text-multiple-field" tabindex="-1" aria-hidden="true">
-                                    @foreach(var item in Model.SecondStageTempTags){
+                                    @foreach (var item in Model.SecondStageTempTags)
+                                    {
                                         <option value="@item.Value">@item.Text</option>
                                     }
                                 </select>
@@ -163,27 +172,28 @@
                             <td colspan="2">
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-info btn-sm raised d-flex gap-2 font-12"><i class="material-icons-outlined">browser_updated</i> LOAD</button>
+                                        <button type="button" class="btn btn-info btn-sm raised d-flex gap-2 font-12" data-type="ajax-req" data-name="loadSecondStageTags"><i class="material-icons-outlined">browser_updated</i> LOAD</button>
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-dark btn-sm raised d-flex gap-2 font-12"><i class="material-icons-outlined">phonelink_erase</i> RESET</button>
+                                        <button type="button" class="btn btn-dark btn-sm raised d-flex gap-2 font-12" data-type="ajax-req" data-name="resetSecondStageTags"><i class="material-icons-outlined">phonelink_erase</i> RESET</button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
                     </table>
-                </div>                
+                </div>
             </div>
         </div>
         <div class="col-md-10">
             <div id="temperatureChart2" style="width: 100%; height: 400px;"></div>
-        </div>        
+        </div>
     </div>
-    
+
     <div class="row" style="margin-bottom:10px !important">
         <div class="col-md-2">
             <div class="card rounded-4">
-                 <div class="card-body">
+                <div class="card-body">
+                    <p>Cooling Temp.</p>
                     <table class="table table-borderless">
                         <tr>
                             <td>
@@ -197,18 +207,20 @@
                                 </div>
                             </td>
                             <td>
-                                <select class="form-select-sm" data-type="ajax-req" data-name="selectCoolingDataSize" title="Cooling Data Size">
+                                <select class="form-select-sm" data-type="ajax-req" id="selectCoolingDataSize" data-name="selectCoolingDataSize" title="Cooling Data Size">
                                     <option value="2" selected>2 Hrs</option>
                                     <option value="4">4 Hrs</option>
                                     <option value="6">6 Hrs</option>
                                     <option value="8">8 Hrs</option>
+                                    <option value="12">12 Hrs</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <select class="form-select select2-hidden-accessible font-12" data-placeholder="Choose anything" id="selectedCoolingTags" multiple="" data-type="ajax-req" data-name="selectedCoolingTags" title="Cooloing Tags" data-select2-id="select2-data-prepend-text-multiple-field" tabindex="-1" aria-hidden="true">
-                                    @foreach(var item in Model.CoolingTags){
+                                    @foreach (var item in Model.CoolingTags)
+                                    {
                                         <option value="@item.Value">@item.Text</option>
                                     }
                                 </select>
@@ -218,28 +230,27 @@
                             <td colspan="2">
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-info btn-sm raised d-flex gap-2 font-12"><i class="material-icons-outlined">browser_updated</i> LOAD</button>
+                                        <button type="button" class="btn btn-info btn-sm raised d-flex gap-2 font-12" data-type="ajax-req" data-name="loadCoolingTags"><i class="material-icons-outlined">browser_updated</i> LOAD</button>
                                     </div>
                                     <div class="col">
-                                        <button type="button" class="btn btn-dark btn-sm raised d-flex gap-2 font-12"><i class="material-icons-outlined">phonelink_erase</i> RESET</button>
+                                        <button type="button" class="btn btn-dark btn-sm raised d-flex gap-2 font-12" data-type="ajax-req" data-name="resetCoolingTags"><i class="material-icons-outlined">phonelink_erase</i> RESET</button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
                     </table>
-                 </div>
+                </div>
             </div>
         </div>
         <div class="col-md-10">
             <div id="coolingChart" style="width: 100%; height: 400px;"></div>
-        </div>        
+        </div>
     </div>
-    
-</div><!--end row-->
 
-@section Scripts{
+</div><!--end row-->
+@section Scripts {
     <script>
-        
+
         // Define all possible Bootstrap color classes to easily remove them
         const bootstrapButtonColors = 'btn-primary btn-secondary btn-success btn-danger btn-warning btn-info btn-light btn-dark';
         const $playfs = $('button[data-name="playFirstStage"]');
@@ -251,10 +262,10 @@
         const $playcool = $('button[data-name="playCooling"]');
         const $pausecool = $('button[data-name="pauseCooling"]');
 
-         $('#selectedPressureTags').select2();
-         $('#selectedFirstStageTags').select2();
-         $('#selectedSecondStageTags').select2();
-         $('#selectedCoolingTags').select2();
+        $('#selectedPressureTags').select2();
+        $('#selectedFirstStageTags').select2();
+        $('#selectedSecondStageTags').select2();
+        $('#selectedCoolingTags').select2();
 
         //#region charts init
         const chart = Highcharts.chart('temperatureChart', {
@@ -409,56 +420,57 @@
 
         //#region page-load
         $(document).ready(function () {
-           
+
             loadDefaultChartData("1stStageTemp");
             loadDefaultChartData("1stStagePressure");
             loadDefaultChartData("2ndStageTemp");
             loadDefaultChartData("coolingTemp");
 
-             $('#selectedPressureTags').select2();
+            $('#selectedPressureTags').select2();
             $('#selectedFirstStageTags').select2();
             $('#selectedSecondStageTags').select2();
             $('#selectedCoolingTags').select2();
 
-            if(localstore.play.firstStage){
+            if (localstore.play.firstStage) {
                 $playfs.addClass('btn-success');
             }
 
-            if(localstore.play.pressure){
+            if (localstore.play.pressure) {
                 $playpress.addClass('btn-success');
             }
 
-            if(localstore.play.secondStage){
+            if (localstore.play.secondStage) {
                 $playst.addClass('btn-success');
             }
 
-            if(localstore.play.cooling){
+            if (localstore.play.cooling) {
                 $playcool.addClass('btn-success');
             }
-                
-            
+
+
         });
         //#endregion
 
         //#region timers
         setInterval(() => {
             loadFlowRate();
-            if(localstore.play.firstStage){
-                loadDefaultChartData("1stStageTemp");
-            }
-            
-            if(localstore.play.pressure){
-                loadDefaultChartData("1stStagePressure");
+
+            if (localstore.play.firstStage) {
+                refreshFirstStage();
             }
 
-            if(localstore.play.secondStage){
-                loadDefaultChartData("2ndStageTemp");
+            if (localstore.play.pressure) {
+                refreshPressure();
             }
 
-            if(localstore.play.cooling){
-                loadDefaultChartData("coolingTemp");
-            }                        
-            
+            if (localstore.play.secondStage) {
+                refreshSecondStage();
+            }
+
+            if (localstore.play.cooling) {
+                refreshCooling();
+            }
+
         }, localstore.timers.main);// run every 30 seconds
         //#endregion
 
@@ -470,12 +482,12 @@
             }).AxGet();
         };
 
-        var loadDefaultChartData = (types) => {
+        var loadDefaultChartData = (types, tags, hours) => {
             new Ax({
                 url: 'Home/GetTagData',
-                data: {'tags':types},
+                data: { 'types': types, 'tags': tags, 'hours': hours },
                 f: function (data) {
-                    
+
                     if (!data || Object.keys(data).length === 0) {
                         //alert("No data available to load.");
                         return;
@@ -496,7 +508,7 @@
                                     tooltip: {
                                         valueDecimals: 2
                                     }
-                                }, true,true);
+                                }, true, true);
                             });
                             //chart.redraw();
                             break;
@@ -514,7 +526,7 @@
                                     tooltip: {
                                         valueDecimals: 2
                                     }
-                                }, true,true);
+                                }, true, true);
                             });
                             //chartP.redraw();
                             break;
@@ -532,7 +544,7 @@
                                     tooltip: {
                                         valueDecimals: 2
                                     }
-                                }, true,true);
+                                }, true, true);
                             });
                             //chart2ndStage.redraw();
                             break;
@@ -550,88 +562,160 @@
                                     tooltip: {
                                         valueDecimals: 2
                                     }
-                                }, true,true);
+                                }, true, true);
                             });
                             //cooling.redraw();
                             break;
                     }
 
                 }
-            }).AxGet();
-        } 
+            }).AxGetTrad();
+        }
+
+
+        //#endregion
+
+        //#region local-request
+        var refreshFirstStage=()=>{
+            var selectedHours = $('#selectedFirstStageDataSize').val();
+            var tags = $('#selectedFirstStageTags').val();
+            loadDefaultChartData("1stStageTemp", tags, selectedHours);
+        }
+        var refreshPressure = () => {
+            var selectedHours = $('#selectedPresureDataSize').val();
+            var tags = $('#selectedPressureTags').val();
+            loadDefaultChartData("1stStagePressure", tags, selectedHours);
+        }
+        var refreshSecondStage=()=>{
+            var selectedHours = $('#selectedSecondStageDataSize').val();
+            var tags = $('#selectedSecondStageTags').val();
+            loadDefaultChartData("2ndStageTemp", tags, selectedHours);
+        }
+        var refreshCooling=()=>{
+            var selectedHours = $('#selectCoolingDataSize').val();
+            var tags = $('#selectedCoolingTags').val();
+            loadDefaultChartData("coolingTemp", tags, selectedHours);
+        }
+        var resetFS=()=>{
+            $('#selectedFirstStageTags').val(null).trigger('change');
+            $('#selectedFirstStageDataSize').val(2);
+            refreshFirstStage();
+        }
+        var resetPres=()=>{
+            $('#selectedPressureTags').val(null).trigger('change');
+            $('#selectedPresureDataSize').val(2);
+            refreshPressure();
+        }
+        var resetSS=()=>{
+            $('#selectedSecondStageTags').val(null).trigger('change');
+            $('#selectedSecondStageDataSize').val(2);
+            refreshSecondStage();
+        }
+        var resetCool=()=>{
+            $('#selectedCoolingTags').val(null).trigger('change');
+            $('#selectCoolingDataSize').val(2);
+            refreshCooling();
+        }
+
 
         //#endregion
 
         //#region <button> events
-        $(document).on('click','button[data-type="ajax-req"]',function(){
-            var name = $(this).attr('data-name');    
+        $(document).on('click', 'button[data-type="ajax-req"]', function () {
+            var name = $(this).attr('data-name');
 
-            switch(name){
+            switch (name) {
                 case "pauseFirstStage":
-                localstore.pause.firstStage=true;
-                localstore.play.firstStage=false;
-                $(this).removeClass(bootstrapButtonColors);
-                $(this).addClass('btn-success');                
-                $playfs.removeClass(bootstrapButtonColors);
-                $playfs.addClass('btn-warning');
-                break;
+                    localstore.pause.firstStage = true;
+                    localstore.play.firstStage = false;
+                    $(this).removeClass(bootstrapButtonColors);
+                    $(this).addClass('btn-success');
+                    $playfs.removeClass(bootstrapButtonColors);
+                    $playfs.addClass('btn-warning');
+                    break;
                 case "playFirstStage":
-                localstore.pause.firstStage=false;
-                localstore.play.firstStage=true;
-                $(this).removeClass(bootstrapButtonColors);
-                $(this).addClass('btn-success');
-                $pausefs.removeClass(bootstrapButtonColors);
-                $pausefs.addClass('btn-warning');
-                break;
+                    localstore.pause.firstStage = false;
+                    localstore.play.firstStage = true;
+                    $(this).removeClass(bootstrapButtonColors);
+                    $(this).addClass('btn-success');
+                    $pausefs.removeClass(bootstrapButtonColors);
+                    $pausefs.addClass('btn-warning');
+                    break;
                 case "pausePressure":
-                localstore.pause.pressure=true;
-                localstore.play.pressure=false;
-                $(this).removeClass(bootstrapButtonColors);
-                $(this).addClass('btn-success');
-                $playpress.removeClass(bootstrapButtonColors);
-                $playpress.addClass('btn-warning');
-                break;
+                    localstore.pause.pressure = true;
+                    localstore.play.pressure = false;
+                    $(this).removeClass(bootstrapButtonColors);
+                    $(this).addClass('btn-success');
+                    $playpress.removeClass(bootstrapButtonColors);
+                    $playpress.addClass('btn-warning');
+                    break;
                 case "playPressure":
-                localstore.pause.pressure=false;
-                localstore.play.pressure=true;
-                $(this).removeClass(bootstrapButtonColors);
-                $(this).addClass('btn-success');
-                $pausepress.removeClass(bootstrapButtonColors);
-                $pausepress.addClass('btn-warning')
-                break;
+                    localstore.pause.pressure = false;
+                    localstore.play.pressure = true;
+                    $(this).removeClass(bootstrapButtonColors);
+                    $(this).addClass('btn-success');
+                    $pausepress.removeClass(bootstrapButtonColors);
+                    $pausepress.addClass('btn-warning')
+                    break;
                 case "pauseSecondStage":
-                localstore.pause.secondStage=true;
-                localstore.play.secondStage=false;
-                $(this).removeClass(bootstrapButtonColors);
-                $(this).addClass('btn-success');
-                $playst.removeClass(bootstrapButtonColors);
-                $playst.addClass('btn-warning');
-                break;
+                    localstore.pause.secondStage = true;
+                    localstore.play.secondStage = false;
+                    $(this).removeClass(bootstrapButtonColors);
+                    $(this).addClass('btn-success');
+                    $playst.removeClass(bootstrapButtonColors);
+                    $playst.addClass('btn-warning');
+                    break;
                 case "playSecondStage":
-                localstore.pause.secondStage=false;
-                localstore.play.secondStage=true;
-                $(this).removeClass(bootstrapButtonColors);
-                $(this).addClass('btn-success');
-                $pausest.removeClass(bootstrapButtonColors);
-                $pausest.addClass('btn-warning');
-                break;
+                    localstore.pause.secondStage = false;
+                    localstore.play.secondStage = true;
+                    $(this).removeClass(bootstrapButtonColors);
+                    $(this).addClass('btn-success');
+                    $pausest.removeClass(bootstrapButtonColors);
+                    $pausest.addClass('btn-warning');
+                    break;
                 case "pauseCooling":
-                localstore.pause.cooling=true;
-                localstore.play.cooling=false;
-                $(this).removeClass(bootstrapButtonColors);
-                $(this).addClass('btn-success');
-                $playcool.removeClass(bootstrapButtonColors);
-                $playcool.addClass('btn-warning');
-                break;
+                    localstore.pause.cooling = true;
+                    localstore.play.cooling = false;
+                    $(this).removeClass(bootstrapButtonColors);
+                    $(this).addClass('btn-success');
+                    $playcool.removeClass(bootstrapButtonColors);
+                    $playcool.addClass('btn-warning');
+                    break;
                 case "playCooling":
-                localstore.pause.cooling=false;
-                localstore.play.cooling=true;
-                $(this).removeClass(bootstrapButtonColors);
-                $(this).addClass('btn-success');
-                $pausecool.removeClass(bootstrapButtonColors);
-                $pausecool.addClass('btn-warning');
-                break;
+                    localstore.pause.cooling = false;
+                    localstore.play.cooling = true;
+                    $(this).removeClass(bootstrapButtonColors);
+                    $(this).addClass('btn-success');
+                    $pausecool.removeClass(bootstrapButtonColors);
+                    $pausecool.addClass('btn-warning');
+                    break;
+                case "loadFirstStageTags":
+                    refreshFirstStage();                    
+                    break;
+                case "loadPressureTags":
+                    refreshPressure();
+                    break;
+                case "loadSecondStageTags":
+                    refreshSecondStage();
+                    break;
+                case "loadCoolingTags":
+                    refreshCooling();
+                    break;
+                case "resetFirstStageTags":
+                    resetFS();
+                    break;
+                case "resetPressureTags":
+                    resetPres();
+                    break;
+                case "resetSecondStageTags":
+                    resetSS();
+                    break;
+                case "resetCoolingTags":
+                    resetCool();
+                    break;
                 
+
+
             }
         });
         //#endregion

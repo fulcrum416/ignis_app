@@ -63,6 +63,44 @@ var Ax = function (
         }
     };
 
+    this.AxGetTrad = function () {
+
+        var req = false;
+        if (!req) {
+            req = true;
+            // render spinner inside div before server callback is received
+            $('#' + vars.divId).html(loadingSpinner);
+            $(loadingDiv).show();
+            $.ajax({
+                url: vars.url,
+                data: vars.data,
+                type: 'GET',
+                cache: false,
+                traditional:true,
+                success: function (result) {
+                    if (result === 'error') {
+                        // handle error via ajax req                        
+                        new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
+                    } else {
+                        $('#' + vars.divId).html(result);
+                    }
+                    // trigger pass through function if not null
+                    if (typeof vars.f === 'function') {
+                        vars.f(result);
+                    }
+                },
+                complete: function () {
+                    req = false;
+                    $(loadingDiv).hide();
+                },
+                error: function () {
+                    req = false;
+                    $(loadingDiv).hide();
+                    // handle error messaging to the user
+                }
+            })
+        }
+    };
     // Ajax POST
     this.AxPost = function () {
 
