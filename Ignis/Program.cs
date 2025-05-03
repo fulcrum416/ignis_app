@@ -6,6 +6,8 @@ using Ignis.Data;
 using Microsoft.EntityFrameworkCore;
 using Ignis.Models.Util;
 using System;
+using Ignis.Models;
+using Microsoft.AspNetCore.Identity;
 
 var configuration = new ConfigurationBuilder()    
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -38,6 +40,11 @@ Log.Logger = new LoggerConfiguration().MinimumLevel.Information()
 
 
 var builder = WebApplication.CreateBuilder(args);
+//var connectionString = builder.Configuration.GetConnectionString("AppDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AppDbContextConnection' not found.");;
+
+//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 
 
 
@@ -49,7 +56,14 @@ builder.Host.ConfigureServices((ctx, service) =>
         options.UseNpgsql(ctx.Configuration.GetConnectionString("IgnisDb"));
         options.EnableSensitiveDataLogging(false);
     });
+    
 });
+
+builder.Services.AddIdentityCore<AppUser>(o =>
+{
+    o.SignIn.RequireConfirmedAccount = true;
+
+}).AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddTransient<ITagDefs,TagDefs>();
 
@@ -70,11 +84,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication(); // authenticate users
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
