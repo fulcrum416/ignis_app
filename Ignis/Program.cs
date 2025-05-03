@@ -36,7 +36,7 @@ Log.Logger = new LoggerConfiguration().MinimumLevel.Information()
     needAutoCreateTable: false
     ).CreateLogger();
 
-
+// NON AUTHENTICATED VERSION
 var builder = WebApplication.CreateBuilder(args);
 
 
