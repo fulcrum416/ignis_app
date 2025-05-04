@@ -1,0 +1,37 @@
+﻿@model Ignis.Models.Bindings.SettingBindings
+
+<div class="row">
+    <div class="col-5">
+        <div class="card rounded-2">
+            <div class="card-header">
+                <h5>Invitations</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Sent</th>
+                            <th>Accepted</th>
+                            <th>Access</th>
+                            <th>Limit</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model.Invites)
+                        {
+                            <tr>
+                                <td>@item.Email</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

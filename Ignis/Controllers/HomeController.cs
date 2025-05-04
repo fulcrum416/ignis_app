@@ -2,12 +2,14 @@ using Ignis.Models;
 using Ignis.Models.Bindings;
 using Ignis.Models.Props;
 using Ignis.Models.Util;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 
 namespace Ignis.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
