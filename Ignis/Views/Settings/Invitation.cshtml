@@ -1,10 +1,23 @@
 ﻿@model Ignis.Models.Bindings.SettingBindings
 
 <div class="row">
+
     <div class="col-5">
         <div class="card rounded-2">
             <div class="card-header">
-                <h5>Invitations</h5>
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="mb-3 mt-3">Invitations</h5>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary btn-circle raised rounded-circle d-flex gap-2 wh-48 btn-sm bx-pull-right" data-type="ajax-req" data-name="addInvite">
+                            <i class="material-icons-outlined">add</i>
+                        </button>
+                    </div>
+                </div>
+
+
+
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-sm">
@@ -15,11 +28,11 @@
                             <th>Accepted</th>
                             <th>Access</th>
                             <th>Limit</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var item in Model.Invites)
+                        @foreach (var item in Model.Invites)
                         {
                             <tr>
                                 <td>@item.Email</td>
@@ -35,3 +48,39 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+
+    <script>
+
+
+        //#region <button> events
+        $(document).on('click','button[data-type="ajax-req"]',function(){
+            var name=$(this).attr('data-name');
+
+            switch(name){
+                case "addInvite":
+                    loadFormNewInvite();
+                    break;
+            }
+        });
+        //#endregion
+
+
+        //#region load-request
+        var loadFormNewInvite=(inviteID)=>{
+            new Ax({
+                url:'Settings/NewInvite',                
+                isModal:true,
+                isModalSize:'small',
+                modalTitle:'Invite Details',
+                data:{'id':inviteID},
+                f:function(){
+
+                }
+            }).AxGet();
+        }
+        //#endregion
+    </script>
+    
+}

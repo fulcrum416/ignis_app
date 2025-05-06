@@ -28,5 +28,20 @@ namespace Ignis.Controllers
             };
             return View(model);
         }
+
+        #region AJAX REQUEST
+        public Task<IActionResult> NewInvite(int id = 0)
+        {
+            if (id == 0)
+            {
+                // new invite logic
+
+            }
+            else
+            {
+                // existing invite logic
+            }
+        }
+        #endregion
     }
 }

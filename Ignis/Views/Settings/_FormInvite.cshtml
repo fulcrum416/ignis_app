@@ -1,0 +1,39 @@
+﻿@model Ignis.Models.Bindings.SettingBindings
+
+<form method="post" id="form_InviteForm">
+    <input type="hidden" asp-for="InviteForm.EditMode" />
+    <input type="hidden" asp-for="InviteForm.InviteID" />
+
+    <div class="row">
+        <div class="form-group">
+            <label asp-for="InviteForm.Email" class="form-label"></label>
+            <input asp-for="InviteForm.Email" class="form-control-sm form-control" />
+            <span asp-validation-for="InviteForm.Email" class="text-danger small"></span>
+        </div>
+        <div class="col-6">
+            <label asp-for="InviteForm.FirstName" class="form-label"></label>
+            <input asp-for="InviteForm.FirstName" class="form-control-sm form-control" />
+            <span asp-validation-for="InviteForm.FirstName" class="text-danger small"></span>
+        </div>
+        <div class="col-6">
+            <label asp-for="InviteForm.LastName" class="form-label col-form-label-sm"></label>
+            <input asp-for="InviteForm.LastName" class="form-control-sm form-control" />
+            <span asp-validation-for="InviteForm.LastName" class="text-danger small"></span>
+        </div>
+        <div class="col-6">
+            <label asp-for="InviteForm.AccessLevelList" class="form-label col-form-label-sm"></label>
+            <select asp-items="Model.InviteForm.AccessLevelList" asp-for="InviteForm.SelectedAccessLevel" class="form-select form-select-sm"></select>
+            <span asp-validation-for="InviteForm.SelectedAccessLevel" class="text-danger small"></span>
+        </div>
+        <div class="col-6">
+            <label asp-for="InviteForm.TotalDays" class="form-label col-form-label-sm"></label>
+            <input asp-for="InviteForm.TotalDays" class="form-control-sm form-control" />
+            <span asp-validation-for="InviteForm.TotalDays" class="text-danger small"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="InviteForm.Email" class="form-label"></label>
+            <input asp-for="InviteForm.Email" class="form-control-sm form-control" />
+            <span asp-validation-for="InviteForm.Email" class="text-danger small"></span>
+        </div>
+    </div>
+</form>
