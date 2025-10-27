@@ -2,7 +2,7 @@
 
 namespace Ignis.Models
 {
-    public class AppUser : IdentityUser
+    public class AppNewUser : IdentityUser
     {
         // custom fields
     }

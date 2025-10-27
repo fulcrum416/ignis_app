@@ -8,16 +8,49 @@ var Ax = function (
         errorMessage: { title: '', message: '' },
         data: null,
         f: null,
-        divId: ''
+        divId: '',
+        traditional: false,
+        isModal: false,
+        isModalSize: '', // small,medium,large
+        modalTitle: '',
+        returnEmpty: false,
+        fProgress: null,
+        divloading: '',
+        returnResult:false
     }
 ) {
     // inside the class
 
     // define root
     var root = this;
+    var modalDialog, modalDialogTitle, modalContentDiv;
     // constructor
     this.construct = function (options) {
         $.extend(vars, options);
+        if (vars.isModal) {
+
+            switch (vars.isModalSize) {
+                case "small":
+                    modalDialog = $("#modal_Small");
+                    modalDialogTitle = $("#modal_Small_Title");
+                    modalContentDiv = $("#_modalSmallContent");
+                    break;
+                case "medium":
+                    modalDialog = $("#modal_Medium");
+                    modalDialogTitle = $("#modal_Medium_Title");
+                    modalContentDiv = $("#_modalMediumContent");
+                    break;
+                case "large":
+                    modalDialog = $("#modal_Large");
+                    modalDialogTitle = $("#modal_Large_Title");
+                    modalContentDiv = $("#_modalLargeContent");
+                    break;
+            }
+            modalDialog.modal('show');
+            modalDialogTitle.text(vars.modalTitle);
+            showLoading(modalContentDiv);
+            //modalContentDiv.html(loader);
+        }
     };
 
     // local variable
@@ -39,16 +72,20 @@ var Ax = function (
                 type: 'GET',
                 cache: false,
                 success: function (result) {
-                    if (result === 'error') {
-                        // handle error via ajax req                        
-                        new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
-                    } else {
-                        $('#' + vars.divId).html(result);
-                    }
-                    // trigger pass through function if not null
-                    if (typeof vars.f === 'function') {
-                        vars.f(result);
-                    }
+
+                    processResults(result);
+
+                    // DEPRACATED OLD VERSION
+                    //if (result === 'error') {
+                    //    // handle error via ajax req                        
+                    //    new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
+                    //} else {
+                    //    $('#' + vars.divId).html(result);
+                    //}
+                    //// trigger pass through function if not null
+                    //if (typeof vars.f === 'function') {
+                    //    vars.f(result);
+                    //}
                 },
                 complete: function () {
                     req = false;
@@ -78,16 +115,20 @@ var Ax = function (
                 cache: false,
                 traditional:true,
                 success: function (result) {
-                    if (result === 'error') {
-                        // handle error via ajax req                        
-                        new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
-                    } else {
-                        $('#' + vars.divId).html(result);
-                    }
-                    // trigger pass through function if not null
-                    if (typeof vars.f === 'function') {
-                        vars.f(result);
-                    }
+
+                    processResults(result);
+
+                    // DEPRACATED OLD VERSION
+                    //if (result === 'error') {
+                    //    // handle error via ajax req                        
+                    //    new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
+                    //} else {
+                    //    $('#' + vars.divId).html(result);
+                    //}
+                    //// trigger pass through function if not null
+                    //if (typeof vars.f === 'function') {
+                    //    vars.f(result);
+                    //}
                 },
                 complete: function () {
                     req = false;
@@ -115,17 +156,21 @@ var Ax = function (
                 type: 'POST',
                 headers: { '__RequestVerificationToken': token },
                 success: function (result) {
-                    if (result === 'error') {
-                        // handle error via ajax req
-                        new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
 
-                    } else {
-                        $('#' + vars.divId).html(result);
-                    }
-                    // trigger pass through function if not null
-                    if (typeof vars.f === 'function') {
-                        vars.f();
-                    }
+                    processResults(result);
+
+                    // DEPRACATED OLD VERSION
+                    //if (result === 'error') {
+                    //    // handle error via ajax req
+                    //    new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
+
+                    //} else {
+                    //    $('#' + vars.divId).html(result);
+                    //}
+                    //// trigger pass through function if not null
+                    //if (typeof vars.f === 'function') {
+                    //    vars.f();
+                    //}
                 },
                 complete: function () {
                     req = false;
@@ -152,13 +197,17 @@ var Ax = function (
                 data: vars.data,
                 type: 'POST',
                 success: function (result) {
-                    if (result === 'error') {
-                        // handle error via ajax req
-                        new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
 
-                    } else {
-                        $('#' + vars.divId).html(result);
-                    }
+                    processResults(result);
+
+                    // DEPRACATED OLD VERSION
+                    //if (result === 'error') {
+                    //    // handle error via ajax req
+                    //    new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
+
+                    //} else {
+                    //    $('#' + vars.divId).html(result);
+                    //}
                 },
                 complete: function () {
                     // trigger pass through function if not null
@@ -194,19 +243,23 @@ var Ax = function (
                 dataType:'json',
                 cache: false,
                 success: function (result) {
-                    if (result === 'error') {
-                        // handle error via ajax req                        
-                        new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
-                    } else {
+
+                    processResults(result);
+
+                    // DEPRACATED OLD VERSION
+                    //if (result === 'error') {
+                    //    // handle error via ajax req                        
+                    //    new Notify({ title: 'Page Request', message: 'Unable to complete request.  Please try reload page.' }).initError();
+                    //} else {
                         
-                    }
+                    //}
                     
-                    // trigger pass through function if not null
-                    if (typeof vars.f === 'function') {
-                        vars.f(result);
-                    } else {
-                        return result//$('#' + vars.divId).html(result);
-                    }
+                    //// trigger pass through function if not null
+                    //if (typeof vars.f === 'function') {
+                    //    vars.f(result);
+                    //} else {
+                    //    return result//$('#' + vars.divId).html(result);
+                    //}
                 },
                 complete: function () {
                     req = false;
@@ -220,6 +273,49 @@ var Ax = function (
             })
         }
     };
+
+    var processResults = function (result) {
+        if (result.success) {
+            if (vars.isModal) {
+                hideLoading(modalContentDiv);
+                modalDialog.modal('hide');
+                modalDialogTitle.text('');
+                modalContentDiv.html("");
+            } else if (vars.returnEmpty) {
+                // do nothing
+                hideLoading(modalContentDiv);
+            } else {
+                $('#' + vars.divId).html(result);
+            }
+
+        } else if (result.success == false) {
+            hideLoading(modalContentDiv);
+            $('#' + vars.divId).html(result);
+            // new Notify({ title: 'Page Request', message: result.message }).initError();
+
+        } else {
+            if (vars.isModal) {
+                modalContentDiv.html(result);
+                hideLoading(modalContentDiv);
+            } else if (vars.isEmpty) {
+                // do do nothing
+                hideLoading(modalContentDiv);
+            } else {
+                $('#' + vars.divId).html(result);
+            }
+        }
+
+        var hideLoading = function (target) {
+            $(target).find('.loading-overlay').remove();
+        }
+
+        // trigger pass through function if not null
+        if (typeof vars.f === 'function') {
+            vars.f(result);
+        } else if (vars.returnResult) {
+            return result;
+        }
+    }
 
     // initialize constructor
     this.construct(vars);

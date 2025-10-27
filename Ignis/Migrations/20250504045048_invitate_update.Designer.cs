@@ -3,6 +3,7 @@ using System;
 using Ignis.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ignis.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250504045048_invitate_update")]
+    partial class invitate_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,17 +127,9 @@ namespace Ignis.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ConfirmationCode")
-                        .HasColumnType("text")
-                        .HasColumnName("confirmationcode");
-
                     b.Property<string>("Email")
                         .HasColumnType("text")
                         .HasColumnName("email");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("text")
-                        .HasColumnName("firstname");
 
                     b.Property<DateTime?>("InDate")
                         .HasColumnType("timestamp with time zone")
@@ -148,10 +143,6 @@ namespace Ignis.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("isactive");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("text")
-                        .HasColumnName("lastname");
-
                     b.Property<string>("MobileNumber")
                         .HasColumnType("text")
                         .HasColumnName("mobilenumber");
@@ -163,10 +154,6 @@ namespace Ignis.Migrations
                     b.Property<bool>("NoLimit")
                         .HasColumnType("boolean")
                         .HasColumnName("nolimit");
-
-                    b.Property<string>("TempCode")
-                        .HasColumnType("text")
-                        .HasColumnName("tempcode");
 
                     b.Property<int>("TotalDays")
                         .HasColumnType("integer")

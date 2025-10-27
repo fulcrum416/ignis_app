@@ -114,8 +114,8 @@ namespace Ignis.Models.Util
             var data = _db.Tags
                 .Where(m => m.Name != null              // Ensure Name is not null
                          && tagNames.Contains(m.Name)  // Filter by the desired tag names
-                         && m.LogDate >= since         // Filter by start date/time (inclusive)
-                         && m.LogDate <= DateTime.UtcNow) // Filter by end date/time (inclusive)
+                         && m.InDate >= since         // Filter by start date/time (inclusive)
+                         && m.InDate <= DateTime.UtcNow) // Filter by end date/time (inclusive)
                                                           // Note: Ordering by InDate here might be redundant if you order by Timestamp later,
                                                           // unless needed for specific database behavior or intermediate processing.
                                                           // Consider ordering only once after the Select if Timestamp is the final desired order.

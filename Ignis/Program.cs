@@ -40,13 +40,9 @@ Log.Logger = new LoggerConfiguration().MinimumLevel.Information()
 
 
 var builder = WebApplication.CreateBuilder(args);
-//var connectionString = builder.Configuration.GetConnectionString("AppDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AppDbContextConnection' not found.");;
-
-//builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 
 
+builder.Services.AddDefaultIdentity<AppNewUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 
 builder.Host.ConfigureServices((ctx, service) =>
 {
@@ -59,13 +55,14 @@ builder.Host.ConfigureServices((ctx, service) =>
     
 });
 
-builder.Services.AddIdentityCore<AppUser>(o =>
+builder.Services.AddIdentityCore<AppNewUser>(o =>
 {
     o.SignIn.RequireConfirmedAccount = true;
 
 }).AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddTransient<ITagDefs,TagDefs>();
+builder.Services.AddTransient<IInviteUtil,InviteUtil>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

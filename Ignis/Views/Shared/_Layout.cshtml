@@ -36,19 +36,44 @@
         <nav class="navbar navbar-expand align-items-center justify-content-between gap-4 border-bottom">
             <div class="logo-header d-none d-xl-flex align-items-center gap-2">
                 <div class="logo-icon">
-                    <img src="assets/images/logo-icon.png" class="logo-img" width="45" alt="">
+                    <img src="https://ignis-assets.us-southeast-1.linodeobjects.com/ignis-header-logo-01.svg" class="logo-img" width="175" alt="ignis">
                 </div>
-                <div class="logo-name">
-                    <h5 class="mb-0">Ignis24</h5>
+                <div class="logo-name">                    
                 </div>
             </div>
+            <ul class="navbar-nav gap-1 nav-right-links align-items-center">
+                <li class="nav-item dropdown">
+                    <a href="javascrpt:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
+                        <img src="~/images/default_avatar.png" class="rounded-circle p-1 border" width="45" height="45" alt="">
+                    </a>
+                    <div class="dropdown-menu dropdown-user dropdown-menu-end shadow">
+                        <a class="dropdown-item  gap-2 py-2" href="javascript:;">
+                            <div class="text-center">
+                                <img src="~/images/default_avatar.png" class="rounded-circle p-1 shadow mb-3" width="90" height="90"
+                                     alt="">
+                                <h5 class="user-name mb-0 fw-bold">
+                                    Hello, Ignis!
+                                </h5>
+                            </div>
+                        </a>
+                        <hr class="dropdown-divider">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="@Url.Action("Invitation","Settings")">
+                            <i class="material-icons-outlined">person_outline</i>Invitation
+                        </a>                        
+                        <hr class="dropdown-divider">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="javascript:;">
+                            <i class="material-icons-outlined">power_settings_new</i>Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </nav>
 
     </header>
     <partial name="_LoginPartial" />
-
+    <partial name="_Modals" />
     <!--start main wrapper-->
-    <main class="main-wrapper" style="margin-top:90px !important">
+    <main class="main-wrapper" style="margin-top:10px !important">
         <div class="main-content">
             @RenderBody()
         </div>
@@ -98,10 +123,10 @@
                 'cooling':false
             },
             'play':{
-                'firstStage':true,
-                'secondStage':true,
-                'pressure':true,
-                'cooling':true
+                'firstStage':false,
+                'secondStage':false,
+                'pressure':false,
+                'cooling':false
             },
             'timers':{
                 'main':60000 // 60 seconds
