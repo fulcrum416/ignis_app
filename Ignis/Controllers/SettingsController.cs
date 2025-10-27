@@ -30,18 +30,20 @@ namespace Ignis.Controllers
         }
 
         #region AJAX REQUEST
-        public Task<IActionResult> NewInvite(int id = 0)
-        {
-            if (id == 0)
-            {
-                // new invite logic
+        //public Task<IActionResult> NewInvite(int id = 0)
+        //{
+        //    if (id == 0)
+        //    {
+        //        // new invite logic
 
-            }
-            else
-            {
-                // existing invite logic
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        // existing invite logic
+        //    }
+
+        //    return Ok();
+        //}
         #endregion
     }
 }
