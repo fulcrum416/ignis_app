@@ -119,7 +119,7 @@ namespace Ignis.Controllers
                 switch (types)
                 {
                     case "1stStageTemp":
-                        defaultTags = new List<string> { "TT-600", "TT-601", "ST-118", "TT-103", "ST-120" };
+                        defaultTags = new List<string> { "TT-609", "TT-602", "TT-606", "ST-100", "ST-118","ST-122" };
                         break;
                     case "1stStagePressure":
                         defaultTags = new List<string> { "PIT-100", "PIT-101", "PIT-104", "PIT-X200", "PIT-X201" };
