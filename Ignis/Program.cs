@@ -25,7 +25,7 @@ Log.Logger = new LoggerConfiguration().MinimumLevel.Information()
     .Enrich.FromLogContext()
     .WriteTo.Console()
     .WriteTo.PostgreSQL(
-    connectionString: _connectionString,
+    connectionString: configuration.GetConnectionString("IgnisDb"),
     tableName: "AppLogs",
     columnOptions: new Dictionary<string, ColumnWriterBase>
         {
